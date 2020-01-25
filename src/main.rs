@@ -12,22 +12,13 @@ fn descending_order(x: u64) -> u64 {
 }
 
 fn comp(a: Vec<i64>, b: Vec<i64>) -> bool {
-    if a.len() != b.len() {
-        return false;
-    }
+    let mut mutb = b.to_vec();
 
-    let mut amut = a;
-    let mut bmut = b;
-    amut.sort();
-    bmut.sort();
+    let mut multi_vector: Vec<i64> = a.into_iter().map(|n| (n * n)).collect();
+    multi_vector.sort();
+    mutb.sort();
 
-    let mut zipped_ab = amut.into_iter().zip(bmut);
-
-    let found = zipped_ab.find(|ab| ab.1 != ab.0 * ab.0);
-    match found {
-        Some(_) => false,
-        None => true,
-    }
+    return multi_vector == mutb;
 }
 
 fn split_int(int: u64) -> Vec<u64> {
@@ -78,7 +69,6 @@ fn tests_comp() {
         19 * 19,
         144 * 144,
         19 * 19,
-        91823091,
     ];
     assert_eq!(comp(a1, a2), true);
 
@@ -94,4 +84,16 @@ fn tests_comp() {
         19 * 19,
     ];
     assert_eq!(comp(a1, a2), false);
+
+    let a1 = vec![121, 144, 19, 161, 19, 144, 19, 11];
+    let a2 = vec![121, 14641, 20736, 36100, 25921, 361, 20736, 361];
+    assert_eq!(comp(a1, a2), false);
+
+    let a1 = vec![2, 2, 3];
+    let a2 = vec![4, 9, 9];
+    assert_eq!(comp(a1, a2), false);
+
+    let a1 = vec![-121, -144, 19, -161, 19, -144, 19, -11];
+    let a2 = vec![121, 14641, 20736, 361, 25921, 361, 20736, 361];
+    assert_eq!(comp(a1, a2), true);
 }

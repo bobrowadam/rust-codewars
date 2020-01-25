@@ -46,6 +46,14 @@ fn join_int_vec(int_vec: Vec<u64>) -> u64 {
     iterable_int_vec
 }
 
+fn get_middle(s: &str) -> &str {
+    let len = s.len() - 1;
+    let from = len / 2;
+    let to = (from + len % 2) + 1;
+
+    &s[from..to]
+}
+
 #[test]
 fn returns_expected() {
     assert_eq!(descending_order(0), 0);
@@ -96,4 +104,13 @@ fn tests_comp() {
     let a1 = vec![-121, -144, 19, -161, 19, -144, 19, -11];
     let a2 = vec![121, 14641, 20736, 361, 25921, 361, 20736, 361];
     assert_eq!(comp(a1, a2), true);
+}
+
+#[test]
+fn example_tests() {
+    assert_eq!(get_middle("test"), "es");
+    assert_eq!(get_middle("testing"), "t");
+    assert_eq!(get_middle("middle"), "dd");
+    assert_eq!(get_middle("A"), "A");
+    assert_eq!(get_middle("of"), "of");
 }
